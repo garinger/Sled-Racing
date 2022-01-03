@@ -15,7 +15,7 @@ bool init_window()
         return false;
     }
 
-    window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     printf("Window initialized!\n");
@@ -24,7 +24,7 @@ bool init_window()
 
 void clear_window()
 {
-    SDL_SetRenderDrawColor(renderer, 25, 25, 25, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 130, 200, 255);
     SDL_RenderClear(renderer);
 }
 

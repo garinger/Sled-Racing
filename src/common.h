@@ -7,9 +7,9 @@
 #include "SDL_image.h"
 #include "window.h"
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 576
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
-bool end_loop;
+bool game_over;
 
 #endif

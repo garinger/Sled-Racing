@@ -8,20 +8,17 @@ bool init_events()
 
 void process_events()
 {
-    if (SDL_WaitEvent(&e))
+    if (SDL_PollEvent(&e) != 0)
     {
         switch (e.type)
         {
             case SDL_QUIT:
-                end_loop = true;
+                game_over = true;
                 break;
             
             case SDL_KEYDOWN:
                 switch (e.key.keysym.sym)
                 {
-                    /******************\
-                    |  Player Movement |
-                    \******************/
                     case SDLK_a:
                     case SDLK_LEFT:               
                         move_player(false);

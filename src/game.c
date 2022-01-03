@@ -3,6 +3,7 @@
 #include "events.h"
 #include "player.h"
 #include "scene.h"
+#include "obstacle_manager.h"
 
 void game_loop()
 {
@@ -12,23 +13,21 @@ void game_loop()
     double delta_time = 0;
 
     /* Main game loop */
-    while (!end_loop)
+    while (!game_over)
     {
         last = now;
         now = SDL_GetPerformanceCounter();
         delta_time = ((now - last) * 1000 / (double)SDL_GetPerformanceFrequency()) * 0.001;
 
         on_input();
-        
         on_update(delta_time);
-
         on_render();
     }
 }
 
 bool init_game()
 {
-    end_loop = false;
+    game_over = false;
 
     if (!init_window() && !init_events())
     {
@@ -38,6 +37,7 @@ bool init_game()
     // Setup player & scene
     init_player();
     init_scene();
+    init_obstacle_manager();
 
     return true;
 }
@@ -49,7 +49,7 @@ void on_input()
 
 void on_update(double delta_time)
 {
-
+    move_obstacles(delta_time);
 }
 
 void on_render()
@@ -58,6 +58,7 @@ void on_render()
 
     draw_scene(); // Update entities in frame
     draw_player();
+    draw_obstacles();
 
     present_window(); // Draw new frame
 }

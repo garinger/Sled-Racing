@@ -46,7 +46,7 @@ void load_player_texture()
         {
             printf("Couldn't create player texture from %s!\n%s\n", player.texture_path, SDL_GetError());
         }
-
+        
         SDL_FreeSurface(temp_surface);
         temp_surface = NULL;
     }
