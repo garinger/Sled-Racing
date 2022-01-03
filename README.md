@@ -1,2 +1,2 @@
 # Sled Racing
- A Club Penguin Sled Racing clone built using C and SDL
+ A Club Penguin Sled Racing clone built with C and SDL
