@@ -10,8 +10,8 @@ void init_obstacle_manager()
     init_obstacle(&obstacles[1], LOG);
     init_obstacle(&obstacles[2], LOG);
 
-    obstacles[1].texture_rect.x += 50;
-    obstacles[1].texture_rect.y += 50;
+    obstacles[1].texture_rect.x -= 100;
+    obstacles[1].texture_rect.y -= 100;
 
     obstacles[2].texture_rect.x += 100;
     obstacles[2].texture_rect.y += 100;
@@ -38,4 +38,10 @@ void draw_obstacles()
             draw_obstacle(&obstacles[i]);
         }
     }
+}
+
+void cleanup_obstacles()
+{
+    printf("Destroying obstacles...\n");
+    free(obstacles);
 }

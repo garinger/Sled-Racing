@@ -67,5 +67,6 @@ void cleanup_game()
 {
     printf("Cleaning up...\n");
     cleanup_window();
+    cleanup_obstacles();
     printf("Exiting!\n");
 }

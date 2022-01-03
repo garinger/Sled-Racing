@@ -6,5 +6,6 @@
 void init_obstacle_manager(void);
 void move_obstacles(double delta_time);
 void draw_obstacles(void);
+void cleanup_obstacles(void);
 
 #endif
