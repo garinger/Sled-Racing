@@ -1,41 +1,58 @@
 #include "obstacle_manager.h"
 
-Obstacle* obstacles;
-size_t array_size = 128;
+struct ObstacleManager
+{
+    Obstacle* obstacles;
+    size_t array_size;
+    size_t curr_obstacle_count;
+    Uint32 time_since_last_obstacle;
+} manager;
 
 void init_obstacle_manager()
 {
-    obstacles = calloc(array_size, sizeof(Obstacle));
-    init_obstacle(&obstacles[0], LOG);
-    init_obstacle(&obstacles[1], LOG);
-    init_obstacle(&obstacles[2], LOG);
+    manager.array_size = 240;
+    manager.curr_obstacle_count = 0;
+    manager.time_since_last_obstacle = 0;
+    manager.obstacles = calloc(manager.array_size, sizeof(Obstacle));
+}
 
-    obstacles[1].texture_rect.x -= 100;
-    obstacles[1].texture_rect.y -= 100;
+void init_new_obstacle()
+{
+    init_obstacle(&manager.obstacles[manager.curr_obstacle_count], LOG);
+    manager.curr_obstacle_count++;
+    manager.time_since_last_obstacle = SDL_GetTicks();
+}
 
-    obstacles[2].texture_rect.x += 100;
-    obstacles[2].texture_rect.y += 100;
+void check_for_new_obstacle()
+{
+    if (manager.curr_obstacle_count == 0)
+    {
+        init_new_obstacle();
+    }
+    else if (SDL_GetTicks() - manager.time_since_last_obstacle >= 2000)
+    {
+        init_new_obstacle();
+    }
 }
 
 void move_obstacles(double delta_time)
 {
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < manager.curr_obstacle_count; i++)
     {
-        if (obstacles[i].texture_path != NULL)
+        if (manager.obstacles[i].is_enabled)
         {
-            move_obstacle(&obstacles[i], delta_time);
-            SDL_Delay(5);
+            move_obstacle(&manager.obstacles[i], delta_time);
         }
     }
 }
 
 void draw_obstacles()
 {
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < manager.curr_obstacle_count; i++)
     {
-        if (obstacles[i].texture_path != NULL)
+        if (manager.obstacles[i].is_enabled && manager.obstacles[i].texture_rect.x < 1280 && manager.obstacles[i].texture_rect.y < 720)
         {
-            draw_obstacle(&obstacles[i]);
+            draw_obstacle(&manager.obstacles[i]);
         }
     }
 }
@@ -43,5 +60,5 @@ void draw_obstacles()
 void cleanup_obstacles()
 {
     printf("Destroying obstacles...\n");
-    free(obstacles);
+    free(manager.obstacles);
 }

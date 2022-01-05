@@ -21,12 +21,12 @@ void process_events()
                 {
                     case SDLK_a:
                     case SDLK_LEFT:               
-                        move_player(false);
+                        move_player(LEFT);
                         break;
                     
                     case SDLK_d:
                     case SDLK_RIGHT:
-                        move_player(true);
+                        move_player(RIGHT);
                         break;
                 }
         }

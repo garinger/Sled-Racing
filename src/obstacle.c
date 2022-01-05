@@ -1,16 +1,17 @@
 #include "obstacle.h"
 
-void init_obstacle(Obstacle* ob, obstacle_type type)
+void init_obstacle(Obstacle* ob, OBSTACLE_TYPE type)
 {
     switch (type)
     {
         case LOG:
             ob->ob_type = LOG;
-            ob->texture_rect.x = SCREEN_WIDTH - 20;
-            ob->texture_rect.y = SCREEN_HEIGHT - 20;
+            ob->texture_rect.x = SCREEN_WIDTH;
+            ob->texture_rect.y = SCREEN_HEIGHT;
             ob->texture_rect.w = 64;
             ob->texture_rect.h = 64;
             ob->texture_path = "C:/c/fun/Sled-Racing/res/penguin.png";
+            ob->is_enabled = true;
             load_obstacle_texture(ob);
             printf("Log created!\n");
             break;
@@ -39,13 +40,13 @@ void init_obstacle(Obstacle* ob, obstacle_type type)
 
 void draw_obstacle(Obstacle* ob)
 {
-    SDL_RenderCopy(renderer, ob->texture, NULL, &ob->texture_rect);
+    SDL_RenderCopyF(renderer, ob->texture, NULL, &ob->texture_rect);
 }
 
 void move_obstacle(Obstacle* ob, double delta_time)
 {
-    ob->texture_rect.x -= 2;
-    ob->texture_rect.y -= 1;
+    ob->texture_rect.x -= 340 * delta_time;
+    ob->texture_rect.y -= 200 * delta_time;
 }
 
 void load_obstacle_texture(Obstacle* ob)

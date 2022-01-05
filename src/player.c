@@ -14,20 +14,20 @@ void init_player()
 
 void draw_player()
 {
-    SDL_RenderCopy(renderer, player.texture, NULL, &player.texture_rect);
+    SDL_RenderCopyF(renderer, player.texture, NULL, &player.texture_rect);
 }
 
-void move_player(bool move_right)
+void move_player(MOVE_DIR DIR)
 {
-    if (move_right)
+    if (DIR == RIGHT && player.texture_rect.x < (SCREEN_WIDTH / 3) + 112)
     {
-        player.texture_rect.x += 35.0;
-        player.texture_rect.y -= 35.0;
+        player.texture_rect.x += 28.0;
+        player.texture_rect.y -= 28.0;
     }
-    else
+    else if (DIR == LEFT && player.texture_rect.x > (SCREEN_WIDTH / 3) - 84)
     {
-        player.texture_rect.x -= 35.0;
-        player.texture_rect.y += 35.0;
+        player.texture_rect.x -= 28.0;
+        player.texture_rect.y += 28.0;
     }
 }
 
